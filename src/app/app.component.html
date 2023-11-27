@@ -1,0 +1,28 @@
+<h3 class="text_center">Infinite Scrolling Posts</h3>
+<h6 class="text_center">DataSource is limitted to 150 records</h6>
+<h5 class="text_center">
+  Developed by
+  <a href="https://rezamakvandi.ir" target="_blank">Reza Makvandi</a>
+</h5>
+<div
+  #container
+  class="container"
+  scrollNearBottom
+  (nearBottom)="onNearBottom($event)"
+>
+  <ng-container *ngFor="let post of posts; index as i">
+    <app-post
+      [postId]="post.id"
+      [postHeight]="postHeight"
+      *ngIf="post.visible"
+      id="post-{{ post.id }}"
+      class="post"
+      [ngStyle]="{ height: postHeight + 'px' }"
+      observeVisibility
+      [debounceTime]="300"
+      [post]="post"
+      (visible)="onVisible($event)"
+    >
+    </app-post>
+  </ng-container>
+</div>
